@@ -1,4 +1,5 @@
 // Copyright (C) 2017 The Qt Company Ltd.
+// Copyright (C) 2024 Automotive Grade Linux
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
 import QtQuick
@@ -26,6 +27,15 @@ WaylandCompositor {
                 visible: true
                 fillMode: Image.Pad
                 source: "images/14_Logo.png"
+
+                DateBox {
+                    id: timedate
+                    width: 200
+                    height: 50
+                    pixSize: 40
+                    x: 10
+                    y: 10
+                }
             }
 
             function showAppList() {
@@ -47,6 +57,7 @@ WaylandCompositor {
                 z: 10
                 visible: false
                 color: "#000000"
+                border.color: "#003000"
                 Image {
                     id: backgroundAppLayer2010
                     width: parent.width
@@ -55,13 +66,10 @@ WaylandCompositor {
                     fillMode: Image.Pad
                     source: "images/15_Maps.png"
                 }
-                Text {
-                    anchors.centerIn: parent
-                    text: "APP Layer 2010"
-                }
 
                 MouseArea {
                     id: appLayer2010MouseArea
+                    z: 20
                     enabled: false
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
@@ -77,6 +85,7 @@ WaylandCompositor {
                     height = (parent.height / 3);
                     x = (parent.width / 8) * 1;
                     y = (parent.height / 8) * 1;
+                    border.width = 10;
                     visible = true;
                     appLayer2010MouseArea.enabled = true;
                 }
@@ -86,6 +95,7 @@ WaylandCompositor {
                     height = parent.height;
                     x = 0;
                     y = 0;
+                    border.width = 0;
                     visible = true;
                     appLayer2010MouseArea.enabled = false;
                 }
@@ -102,6 +112,7 @@ WaylandCompositor {
                 z: 10
                 visible: false
                 color: "#000000"
+                border.color: "#003000"
                 Image {
                     id: backgroundAppLayer2011
                     width: parent.width
@@ -110,13 +121,10 @@ WaylandCompositor {
                     fillMode: Image.Pad
                     source: "images/16_Multimedia.png"
                 }
-                Text {
-                    anchors.centerIn: parent
-                    text: "APP Layer 2011"
-                }
 
                 MouseArea {
                     id: appLayer2011MouseArea
+                    z: 20
                     enabled: false
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
@@ -132,6 +140,7 @@ WaylandCompositor {
                     height = (parent.height / 3);
                     x = (parent.width / 8) * 4;
                     y = (parent.height / 8) * 1;
+                    border.width = 10;
                     visible = true;
                     appLayer2011MouseArea.enabled = true;
                 }
@@ -141,6 +150,7 @@ WaylandCompositor {
                     height = parent.height;
                     x = 0;
                     y = 0;
+                    border.width = 0;
                     visible = true;
                     appLayer2011MouseArea.enabled = false;
                 }
@@ -155,6 +165,7 @@ WaylandCompositor {
                 z: 10
                 visible: false
                 color: "#000000"
+                border.color: "#003000"
                 Image {
                     id: backgroundAppLayer2012
                     width: parent.width
@@ -163,13 +174,10 @@ WaylandCompositor {
                     fillMode: Image.Pad
                     source: "images/17_Dashboard.png"
                 }
-                Text {
-                    anchors.centerIn: parent
-                    text: "APP Layer 2012"
-                }
 
                 MouseArea {
                     id: appLayer2012MouseArea
+                    z: 20
                     enabled: false
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
@@ -185,6 +193,7 @@ WaylandCompositor {
                     height = (parent.height / 3);
                     x = (parent.width / 8) * 1;
                     y = (parent.height / 8) * 4;
+                    border.width = 10;
                     visible = true;
                     appLayer2012MouseArea.enabled = true;
                 }
@@ -194,6 +203,7 @@ WaylandCompositor {
                     height = parent.height;
                     x = 0;
                     y = 0;
+                    border.width = 0;
                     visible = true;
                     appLayer2012MouseArea.enabled = false;
                 }
@@ -208,6 +218,7 @@ WaylandCompositor {
                 z: 10
                 visible: false
                 color: "#000000"
+                border.color: "#003000"
                 Image {
                     id: backgroundAppLayer2013
                     width: parent.width
@@ -216,13 +227,10 @@ WaylandCompositor {
                     fillMode: Image.Pad
                     source: "images/18_Setting.png"
                 }
-                Text {
-                    anchors.centerIn: parent
-                    text: "APP Layer 2013"
-                }
 
                 MouseArea {
                     id: appLayer2013MouseArea
+                    z: 20
                     enabled: false
                     anchors.fill: parent
                     acceptedButtons: Qt.LeftButton
@@ -238,6 +246,7 @@ WaylandCompositor {
                     height = (parent.height / 3);
                     x = (parent.width / 8) * 4;
                     y = (parent.height / 8) * 4;
+                    border.width = 10;
                     visible = true;
                     appLayer2013MouseArea.enabled = true;
                 }
@@ -247,6 +256,7 @@ WaylandCompositor {
                     height = parent.height;
                     x = 0;
                     y = 0;
+                    border.width = 0;
                     visible = true;
                     appLayer2013MouseArea.enabled = false;
                 }
@@ -285,23 +295,15 @@ WaylandCompositor {
             }
         }
     }
-    //! [wayland output]
+
     Component {
         id: chromeComponent
         ShellSurfaceItem {
             anchors.fill: parent
             onSurfaceDestroyed: destroy()
-            //! [resizing]
-            onWidthChanged: handleResized()
-            onHeightChanged: handleResized()
-            function handleResized() {
-                if (width > 0 && height > 0)
-                    shellSurface.sendConfigure(Qt.size(width, height));
-            }
-            //! [resizing]
         }
     }
-    //! [connecting]
+
     IviApplication {
         onIviSurfaceCreated: (iviSurface) =>  {
             var surfaceArea;
@@ -320,16 +322,13 @@ WaylandCompositor {
             }
 
             if (validValue === true) {
-                var item = chromeComponent.createObject(surfaceArea, { "shellSurface": iviSurface } );
+                var item = chromeComponent.createObject(surfaceArea, 
+                    {
+                        "shellSurface": iviSurface,
+                        z: 10
+                    } );
                 item.handleResized();
             }
         }
     }
-    XdgShell {
-        onXdgSurfaceCreated: (xdgSurface) =>  {
-            var item = chromeComponent.createObject(appLayer2013, { "shellSurface": iviSurface } );
-            item.handleResized();
-        }
-    }
-    //! [connecting]
 }

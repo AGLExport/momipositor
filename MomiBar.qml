@@ -6,7 +6,6 @@ import QtQuick.Effects
 Item {
     id: momiBar
     visible: true
-    //color: "transparent"
 
     Image {
         id: logoAGL
@@ -20,8 +19,10 @@ Item {
         anchors.fill: logoAGL
         brightness: 0.4
         saturation: 0.2
-        blurEnabled: true
-        blurMax: 64
-        blur: 1.0
+        shadowEnabled: true
+        shadowOpacity: 1.0
+        shadowBlur: 0.5
+        shadowHorizontalOffset: 4.0
+        shadowVerticalOffset: 4.0
     }
 }
